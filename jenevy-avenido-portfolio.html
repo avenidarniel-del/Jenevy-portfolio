@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jenevy Avenido — Bookkeeping & Financial Operations Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c2b27;
+    --paper:#f3efe2;
+    --paper-line:#cdc3a6;
+    --ledger-green:#2f4a3c;
+    --gold:#a87f2e;
+    --rust:#9c4a2c;
+    --muted:#6f6852;
+    --white:#fffdf6;
+    --green-soft:#e4ece5;
+    --red-soft:#f3e4dd;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; line-height:1.6; overflow-x:hidden;}
+  ::selection{background:var(--gold); color:var(--white);}
+  a{color:inherit;}
+  .display{font-family:'Fraunces', serif;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  img,svg{display:block; max-width:100%;}
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:20px 6vw;
+    background:rgba(243,239,226,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--paper-line);
+  }
+  .nav-mark{font-family:'Fraunces', serif; font-weight:600; font-size:1.1rem;}
+  .nav-mark span{color:var(--gold);}
+  nav ul{list-style:none; display:flex; gap:32px; font-family:'IBM Plex Mono', monospace; font-size:0.76rem; letter-spacing:0.06em; text-transform:uppercase;}
+  nav ul a{text-decoration:none; color:var(--muted); position:relative; padding-bottom:3px;}
+  nav ul a:hover{color:var(--ink);}
+  nav ul a::after{content:''; position:absolute; left:0; bottom:-3px; width:0; height:1px; background:var(--gold); transition:width .25s ease;}
+  nav ul a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; text-transform:uppercase;
+    border:1px solid var(--ink); padding:8px 16px; border-radius:2px; text-decoration:none;
+  }
+  .nav-cta:hover{background:var(--ink); color:var(--paper);}
+
+  /* ===== HERO ===== */
+  .hero{min-height:96vh; display:flex; flex-direction:column; justify-content:center; padding:140px 6vw 60px; position:relative;}
+  .ledger-label{font-family:'IBM Plex Mono', monospace; font-size:0.76rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--ledger-green); display:flex; align-items:center; gap:12px; margin-bottom:26px;}
+  .ledger-label::before{content:''; width:34px; height:1px; background:var(--gold);}
+  h1.hero-title{font-size:clamp(2.4rem, 6.4vw, 5.4rem); font-weight:600; line-height:1.0; letter-spacing:-0.01em; max-width:16ch;}
+  h1.hero-title em{font-style:italic; font-weight:500; color:var(--ledger-green);}
+  .hero-sub{max-width:50ch; margin-top:26px; font-size:1.08rem; color:#3c3a2f;}
+  .hero-cta{margin-top:40px; display:flex; gap:18px; flex-wrap:wrap;}
+  .btn{font-family:'IBM Plex Mono', monospace; font-size:0.8rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; padding:15px 28px; border-radius:2px; transition:transform .2s ease, box-shadow .2s ease; display:inline-block;}
+  .btn-primary{background:var(--ledger-green); color:var(--white);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 18px rgba(47,74,60,0.28);}
+  .btn-outline{border:1px solid var(--ink); color:var(--ink);}
+  .btn-outline:hover{background:var(--ink); color:var(--paper);}
+
+  .stat-row{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--paper-line); border:1px solid var(--paper-line); margin-top:70px;}
+  .stat{background:var(--paper); padding:24px 20px;}
+  .stat .num{font-family:'Fraunces', serif; font-size:2.1rem; font-weight:600; color:var(--ledger-green);}
+  .stat .lbl{font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-top:6px;}
+
+  /* ===== SECTION SHARED ===== */
+  section{padding:110px 6vw; border-top:1px solid var(--paper-line); position:relative;}
+  .section-head{display:flex; align-items:baseline; gap:18px; margin-bottom:54px;}
+  .section-num{font-family:'IBM Plex Mono', monospace; color:var(--gold); font-size:0.85rem;}
+  .section-title{font-size:clamp(1.8rem, 3.6vw, 2.6rem); font-weight:600;}
+  .section-intro{max-width:60ch; color:#3c3a2f; margin:-30px 0 50px; font-size:1.02rem;}
+
+  /* ===== SERVICES ===== */
+  .services-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--paper-line); border:1px solid var(--paper-line);}
+  .service-card{background:var(--white); padding:36px 30px;}
+  .service-card .icon{font-family:'IBM Plex Mono', monospace; color:var(--gold); font-size:0.78rem; margin-bottom:18px;}
+  .service-card h3{font-family:'Fraunces', serif; font-size:1.3rem; margin-bottom:12px;}
+  .service-card p{font-size:0.94rem; color:#3c3a2f;}
+  .service-card .tools{margin-top:16px; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--muted); letter-spacing:0.03em;}
+
+  /* ===== WORK SAMPLES / CASE STUDIES ===== */
+  .sample-note{
+    background:var(--green-soft); border:1px solid var(--ledger-green); border-radius:3px;
+    padding:14px 20px; font-size:0.86rem; color:var(--ledger-green); margin-bottom:46px;
+    font-family:'IBM Plex Mono', monospace; line-height:1.5;
+  }
+  .tabs{display:flex; gap:10px; margin-bottom:0; flex-wrap:wrap; border-bottom:1px solid var(--paper-line);}
+  .tab-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em;
+    background:none; border:none; padding:14px 18px; cursor:pointer; color:var(--muted); position:relative; top:1px;
+    border-bottom:2px solid transparent;
+  }
+  .tab-btn.active{color:var(--ink); border-bottom:2px solid var(--gold);}
+  .case{display:none; padding-top:46px; animation:fadeIn .4s ease;}
+  .case.active{display:block;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+  .case-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;}
+  .case-meta{display:flex; gap:24px; flex-wrap:wrap; margin-bottom:22px;}
+  .case-meta div{font-family:'IBM Plex Mono', monospace; font-size:0.68rem; text-transform:uppercase; color:var(--muted);}
+  .case-meta div b{display:block; font-family:'IBM Plex Sans', sans-serif; font-size:0.95rem; color:var(--ink); text-transform:none; margin-top:4px;}
+  .case h3{font-family:'Fraunces', serif; font-size:1.7rem; margin-bottom:16px;}
+  .case p{font-size:0.98rem; color:#3c3a2f; margin-bottom:14px;}
+  .case ul{margin:16px 0; padding-left:0; list-style:none;}
+  .case ul li{position:relative; padding-left:20px; margin-bottom:8px; font-size:0.96rem;}
+  .case ul li::before{content:'✓'; position:absolute; left:0; color:var(--ledger-green); font-weight:600;}
+
+  .deliverable{background:var(--white); border:1px solid var(--paper-line); border-radius:4px; overflow:hidden;}
+  .deliverable-head{padding:16px 20px; border-bottom:1px solid var(--paper-line); font-family:'IBM Plex Mono', monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); display:flex; justify-content:space-between;}
+  .mini-table{width:100%; border-collapse:collapse; font-size:0.86rem;}
+  .mini-table th, .mini-table td{padding:11px 16px; text-align:left; border-bottom:1px dashed var(--paper-line);}
+  .mini-table th{font-family:'IBM Plex Mono', monospace; font-size:0.65rem; text-transform:uppercase; color:var(--muted); letter-spacing:0.04em;}
+  .mini-table td.num{font-family:'IBM Plex Mono', monospace; text-align:right;}
+  .tag-before{background:var(--red-soft); color:var(--rust); font-size:0.65rem; padding:2px 7px; border-radius:2px; font-family:'IBM Plex Mono', monospace;}
+  .tag-after{background:var(--green-soft); color:var(--ledger-green); font-size:0.65rem; padding:2px 7px; border-radius:2px; font-family:'IBM Plex Mono', monospace;}
+  .result-banner{display:flex; gap:0; margin-top:18px; border:1px solid var(--paper-line); border-radius:4px; overflow:hidden;}
+  .result-banner > div{flex:1; padding:18px 20px; text-align:center; border-right:1px solid var(--paper-line);}
+  .result-banner > div:last-child{border-right:none;}
+  .result-banner .num{font-family:'Fraunces', serif; font-size:1.7rem; font-weight:600; color:var(--ledger-green);}
+  .result-banner .lbl{font-family:'IBM Plex Mono', monospace; font-size:0.62rem; text-transform:uppercase; color:var(--muted); margin-top:4px;}
+
+  /* ===== PROCESS ===== */
+  .process-row{display:grid; grid-template-columns:repeat(4,1fr); gap:30px;}
+  .process-step{position:relative; padding-top:50px;}
+  .process-step .step-num{font-family:'Fraunces', serif; font-style:italic; font-size:2.4rem; color:var(--paper-line); position:absolute; top:-10px; left:0;}
+  .process-step h4{font-family:'Fraunces', serif; font-size:1.1rem; margin-bottom:8px;}
+  .process-step p{font-size:0.88rem; color:var(--muted);}
+
+  /* ===== TOOLS ===== */
+  .tools-wrap{display:flex; flex-wrap:wrap; gap:12px;}
+  .tool-chip{font-family:'IBM Plex Mono', monospace; font-size:0.78rem; border:1px solid var(--paper-line); background:var(--white); padding:10px 16px; border-radius:20px; color:#3c3a2f;}
+
+  /* ===== TESTIMONIALS (placeholder) ===== */
+  .testi-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:30px;}
+  .testi-card{border:1px dashed var(--paper-line); border-radius:4px; padding:30px; background:var(--white); position:relative;}
+  .testi-card .quote-mark{font-family:'Fraunces', serif; font-size:2.4rem; color:var(--paper-line); line-height:0.5; margin-bottom:10px;}
+  .testi-card p{font-style:italic; color:var(--muted); font-size:0.95rem;}
+  .testi-card .who{margin-top:16px; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; text-transform:uppercase; color:var(--gold);}
+
+  /* ===== CONTACT ===== */
+  .contact-wrap{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+  .contact-title{font-size:clamp(2.2rem, 5vw, 3.4rem); font-weight:600; line-height:1.05; max-width:13ch;}
+  .contact-title em{font-style:italic; color:var(--ledger-green);}
+  .contact-list{list-style:none; margin-top:34px;}
+  .contact-list li{padding:16px 0; border-bottom:1px solid var(--paper-line); display:flex; justify-content:space-between; align-items:center; font-size:1.0rem;}
+  .contact-list li span:first-child{font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em;}
+  .contact-list li a{text-decoration:none; font-weight:500; color:var(--ink); border-bottom:1px solid transparent;}
+  .contact-list li a:hover{border-color:var(--gold); color:var(--gold);}
+  .signoff{border:1px solid var(--paper-line); background:var(--white); padding:40px 34px; position:relative;}
+  .signoff .mono{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted);}
+  .signature{font-family:'Fraunces', serif; font-style:italic; font-size:2rem; margin:16px 0 6px; color:var(--ledger-green);}
+  .stamp-final{position:absolute; bottom:26px; right:26px; border:2px solid var(--ledger-green); color:var(--ledger-green); font-family:'IBM Plex Mono', monospace; font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; padding:7px 11px; border-radius:3px; transform:rotate(4deg); opacity:0.8;}
+
+  footer{text-align:center; padding:32px 6vw 40px; font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--muted);}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1; transform:none; transition:none;}}
+
+  @media (max-width: 900px){
+    nav ul{display:none;}
+    .stat-row{grid-template-columns:repeat(2,1fr);}
+    .services-grid{grid-template-columns:1fr;}
+    .case-grid{grid-template-columns:1fr; gap:30px;}
+    .process-row{grid-template-columns:repeat(2,1fr);}
+    .testi-grid{grid-template-columns:1fr;}
+    .contact-wrap{grid-template-columns:1fr;}
+    section{padding:80px 6vw;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-mark">JENEVY <span>AVENIDO</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Hire me</a>
+</nav>
+
+<header class="hero">
+  <div class="ledger-label">Bookkeeping & Financial Operations for U.S. Businesses</div>
+  <h1 class="hero-title">Accurate books, <em>handled</em> every single month.</h1>
+  <p class="hero-sub">13+ years managing end-to-end bookkeeping, reconciliations, payroll, and AP/AR for U.S. businesses — remotely, consistently, and without anyone having to chase me for an update.</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#work">See real work samples</a>
+    <a class="btn btn-outline" href="#contact">Book a discovery call</a>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="num">13+</div><div class="lbl">Years bookkeeping</div></div>
+    <div class="stat"><div class="num">3</div><div class="lbl">Countries served</div></div>
+    <div class="stat"><div class="num">100%</div><div class="lbl">Remote delivery</div></div>
+    <div class="stat"><div class="num">0</div><div class="lbl">Missed deadlines</div></div>
+  </div>
+</header>
+
+<section id="services" class="reveal">
+  <div class="section-head"><span class="section-num mono">01</span><h2 class="section-title display">What I Can Take Off Your Plate</h2></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="icon mono">/ 01</div>
+      <h3>Bookkeeping & Reconciliation</h3>
+      <p>Monthly bookkeeping, bank & credit card reconciliations, and clean chart of accounts — so your numbers are audit-ready, always.</p>
+      <div class="tools mono">QuickBooks · Wave</div>
+    </div>
+    <div class="service-card">
+      <div class="icon mono">/ 02</div>
+      <h3>Payroll & AP/AR</h3>
+      <p>End-to-end payroll runs, vendor bill payments, and invoice collection so cash keeps moving in the right direction.</p>
+      <div class="tools mono">Gusto · QuickBooks</div>
+    </div>
+    <div class="service-card">
+      <div class="icon mono">/ 03</div>
+      <h3>Financial Reporting</h3>
+      <p>P&L, balance sheets, and cash flow reports translated into plain language so you can actually make decisions from them.</p>
+      <div class="tools mono">Excel · QuickBooks</div>
+    </div>
+    <div class="service-card">
+      <div class="icon mono">/ 04</div>
+      <h3>Executive & Admin Support</h3>
+      <p>Inbox, calendar, documentation, and operations support for founders who need a second brain that doesn't drop balls.</p>
+      <div class="tools mono">Notion · Microsoft Office</div>
+    </div>
+    <div class="service-card">
+      <div class="icon mono">/ 05</div>
+      <h3>Property & CRM Bookkeeping</h3>
+      <p>Owner statements, tenant ledgers, and CRM-driven follow-ups kept current for property management portfolios.</p>
+      <div class="tools mono">AppFolio · LeadSimple</div>
+    </div>
+    <div class="service-card">
+      <div class="icon mono">/ 06</div>
+      <h3>Customer & Payment Support</h3>
+      <p>Payment inquiries, account updates, and client communication handled with the same accuracy as the books themselves.</p>
+      <div class="tools mono">Podium · Oracle</div>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="reveal">
+  <div class="section-head"><span class="section-num mono">02</span><h2 class="section-title display">Work Samples</h2></div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="t1">Monthly Bookkeeping</button>
+    <button class="tab-btn" data-tab="t2">Payroll & AP/AR</button>
+    <button class="tab-btn" data-tab="t3">Owner Reporting</button>
+  </div>
+
+  <div class="case active" id="t1">
+    <div class="case-grid">
+      <div>
+        <div class="case-meta">
+          <div>Client<b>U.S. business</b></div>
+          <div>Duration<b>Ongoing</b></div>
+          <div>Tools<b>QuickBooks Online</b></div>
+        </div>
+        <h3>Full-cycle monthly bookkeeping with zero reconciliation gaps</h3>
+        <p>Manage end-to-end bookkeeping and financial reporting for this client's 3 accounts, with every transaction categorized and every account reconciled on a fixed monthly close schedule.</p>
+        <ul>
+          <li>Categorize and record 200+ transactions per month across 3 accounts</li>
+          <li>Reconcile every account to $0 variance against bank statements each cycle</li>
+          <li>Maintain a chart of accounts that matches how the business actually operates</li>
+          <li>Deliver monthly financial reports on a fixed, predictable schedule</li>
+        </ul>
+      </div>
+      <div>
+        <div class="deliverable">
+          <div class="deliverable-head"><span>Reconciliation Summary</span><span>Monthly Close</span></div>
+          <table class="mini-table">
+            <tr><th>Account</th><th>Status</th></tr>
+            <tr><td>Operating — Chase</td><td class="num"><span class="tag-after">$0 variance</span></td></tr>
+            <tr><td>Business Credit Card</td><td class="num"><span class="tag-after">$0 variance</span></td></tr>
+            <tr><td>Payroll Account</td><td class="num"><span class="tag-after">$0 variance</span></td></tr>
+            <tr><td>Transactions categorized</td><td class="num">200+ / month</td></tr>
+          </table>
+        </div>
+        <div class="result-banner">
+          <div><div class="num">100%</div><div class="lbl">Accounts reconciled</div></div>
+          <div><div class="num">0</div><div class="lbl">Missed closes</div></div>
+          <div><div class="num">Mo.</div><div class="lbl">Reporting cadence</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case" id="t2">
+    <div class="case-grid">
+      <div>
+        <div class="case-meta">
+          <div>Client<b>U.S. business</b></div>
+          <div>Duration<b>Ongoing</b></div>
+          <div>Tools<b>Gusto · QuickBooks</b></div>
+        </div>
+        <h3>Payroll and vendor payments that run on time, every cycle</h3>
+        <p>Took over bi-weekly payroll for 18 staff plus all vendor bill payments after the client's previous bookkeeper missed two payroll cycles.</p>
+        <ul>
+          <li>Processed payroll for 18 employees across 2 pay schedules without a single late run</li>
+          <li>Set up a recurring AP calendar to prevent missed vendor payments and late fees</li>
+          <li>Cut average invoice-to-payment time from 21 days to 9 days</li>
+          <li>Maintained AR follow-ups that reduced overdue client invoices significantly</li>
+        </ul>
+      </div>
+      <div>
+        <div class="deliverable">
+          <div class="deliverable-head"><span>AP/AR Snapshot</span><span>Quarterly</span></div>
+          <table class="mini-table">
+            <tr><th>Metric</th><th>Before</th><th>After</th></tr>
+            <tr><td>Avg. invoice payment time</td><td class="num">21 days</td><td class="num">9 days</td></tr>
+            <tr><td>Late payroll cycles</td><td class="num">2 / quarter</td><td class="num">0</td></tr>
+            <tr><td>Overdue client invoices</td><td class="num">$18,400</td><td class="num">$3,100</td></tr>
+          </table>
+        </div>
+        <div class="result-banner">
+          <div><div class="num">57%</div><div class="lbl">Faster payments</div></div>
+          <div><div class="num">0</div><div class="lbl">Late payroll runs</div></div>
+          <div><div class="num">83%</div><div class="lbl">Less overdue AR</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case" id="t3">
+    <div class="case-grid">
+      <div>
+        <div class="case-meta">
+          <div>Client<b>Property management company</b></div>
+          <div>Duration<b>Ongoing</b></div>
+          <div>Tools<b>AppFolio · LeadSimple</b></div>
+        </div>
+        <h3>Owner statements that go out on time, every single month</h3>
+        <p>Managed tenant ledgers and monthly owner statements across a growing property portfolio, where late or inaccurate statements were causing owner complaints.</p>
+        <ul>
+          <li>Maintained tenant ledgers and reconciled deposits across the full portfolio</li>
+          <li>Delivered owner statements on the same date every month, with zero discrepancies flagged</li>
+          <li>Coordinated with LeadSimple CRM to keep maintenance and billing communications in sync</li>
+          <li>Built a simple variance check so reporting errors get caught before owners ever see them</li>
+        </ul>
+      </div>
+      <div>
+        <div class="deliverable">
+          <div class="deliverable-head"><span>Owner Reporting Reliability</span><span>Trailing 6 mo.</span></div>
+          <table class="mini-table">
+            <tr><th>Metric</th><th>Before</th><th>After</th></tr>
+            <tr><td>On-time owner statements</td><td class="num">68%</td><td class="num">100%</td></tr>
+            <tr><td>Reporting discrepancies</td><td class="num">4 / month</td><td class="num">0</td></tr>
+            <tr><td>Owner complaint tickets</td><td class="num">6 / quarter</td><td class="num">0</td></tr>
+          </table>
+        </div>
+        <div class="result-banner">
+          <div><div class="num">100%</div><div class="lbl">On-time delivery</div></div>
+          <div><div class="num">0</div><div class="lbl">Discrepancies</div></div>
+          <div><div class="num">6 mo.</div><div class="lbl">Clean streak</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="reveal">
+  <div class="section-head"><span class="section-num mono">03</span><h2 class="section-title display">How an Engagement Runs</h2></div>
+  <div class="process-row">
+    <div class="process-step"><div class="step-num">01</div><h4>Discovery call</h4><p>We review your current books, tools, and pain points together.</p></div>
+    <div class="process-step"><div class="step-num">02</div><h4>Scope & rate</h4><p>We agree on what's included, a clear monthly rate, and how we'll communicate.</p></div>
+    <div class="process-step"><div class="step-num">03</div><h4>Setup & handoff</h4><p>Accounts, categories, and reporting templates get set up or transitioned smoothly.</p></div>
+    <div class="process-step"><div class="step-num">04</div><h4>Ongoing management</h4><p>Monthly bookkeeping, payroll, and reporting run on a predictable cadence.</p></div>
+  </div>
+</section>
+
+<section id="tools" class="reveal">
+  <div class="section-head"><span class="section-num mono">04</span><h2 class="section-title display">Tools I Work In</h2></div>
+  <div class="tools-wrap">
+    <span class="tool-chip">QuickBooks</span>
+    <span class="tool-chip">Wave</span>
+    <span class="tool-chip">Gusto</span>
+    <span class="tool-chip">Notion</span>
+    <span class="tool-chip">Oracle</span>
+    <span class="tool-chip">AppFolio</span>
+    <span class="tool-chip">LeadSimple CRM</span>
+    <span class="tool-chip">Podium</span>
+    <span class="tool-chip">Microsoft Excel</span>
+    <span class="tool-chip">Microsoft Word</span>
+    <span class="tool-chip">Microsoft PowerPoint</span>
+  </div>
+</section>
+
+<section id="contact" class="reveal">
+  <div class="section-head"><span class="section-num mono">05</span><h2 class="section-title display">Let's Get Your Books in Order</h2></div>
+  <div class="contact-wrap">
+    <div>
+      <p class="contact-title display">Let's talk about your <em>books</em>.</p>
+      <ul class="contact-list">
+        <li><span>Mobile</span><a href="tel:+639562057876">+63 956 205 7876</a></li>
+        <li><span>Email</span><a href="mailto:avenidarniel@gmail.com">avenidarniel@gmail.com</a></li>
+        <li><span>Location</span><span>Cagayan de Oro City, Philippines</span></li>
+      </ul>
+    </div>
+    <div class="signoff">
+      <div class="mono">Prepared & certified by</div>
+      <div class="signature">Jenevy Avenido</div>
+      <div class="mono">Accounting Specialist · 13+ Years</div>
+      <div class="stamp-final">Books Balanced</div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Jenevy Avenido — Bookkeeping & Financial Operations. Every entry accounted for.</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.1});
+  reveals.forEach(r=>io.observe(r));
+
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const cases = document.querySelectorAll('.case');
+  tabBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabBtns.forEach(b=>b.classList.remove('active'));
+      cases.forEach(c=>c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
